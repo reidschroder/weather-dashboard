@@ -87,7 +87,7 @@ var displayWeather = function(data) {
     
 
     let weather = data.current;
-   console.log(weather);
+   //console.log(weather);
 
     let temp = weather.temp;
     let humidity = weather.humidity;
@@ -98,7 +98,7 @@ var displayWeather = function(data) {
 
 
     temperature = document.querySelector("#temperature");
-    temperature.innerHTML = "Current Temperature: " + temp + " \u00B0 F";
+    temperature.innerHTML = "Current Temperature: " + temp + "\u00B0 F";
 
     currentHumidity = document.querySelector("#humidity");
     currentHumidity.innerHTML = "Humidity: " + humidity;
@@ -118,13 +118,58 @@ var displayWeather = function(data) {
     
     
 }
-// Display 5 Day Forecast
+// Display 5 Day Forecast ========== ???????????
 function displayForecast(data) {
     console.log(data);
 
-    var forecastEl = document.createElement("div");
-    forecastEl.classList.add("weather-card");
+   var daily = weather.daily;
 
+    var forecastEl = document.createElement("div");
+    forecastEl.classList.add("forecastContainer");
+
+
+    for (var i = 0; i <5; i++) {
+    //var dailyTemp = (daily[i] temp.day);
+
+
+    forecastTemperature = document.querySelector(forecastContainer);
+    forecastTemperature.innerHTML = "Temperature: " + forecastTemp + "\u00B0 F";
+
+    futureHumidity = document.querySelector(forecastContainer);
+    futureHumidity.innerHTML = "Humidity: " + forecastHumidity;
+
+    forecastWindGust = document.querySelector(forecastContainer);
+    forecastWindGust.innerHTML = "Wind: " + forecastWind + " MPH";
+
+    forecastUv = document.querySelector(forecastContainer);
+    forecastUv.innerHTML = "UV Index: " + forecastUvi;
+
+
+    }
+    
+
+    let forecastTemp = daily.temp.day;
+    let forecastHumidity =daily.humidity;
+    let forecastWind = daily.wind_gust;
+    let forecastUvi = daily.uvi;
+
+    //forecastTemperature = document.querySelector(forecastContainer);
+    //forecastTemperature.innerHTML = "Temperature: " + forecastTemp + "\u00B0 F";
+
+   // futureHumidity = document.querySelector(forecastContainer);
+    //futureHumidity.innerHTML = "Humidity: " + forecastHumidity;
+
+    //forecastWindGust = document.querySelector(forecastContainer);
+    //forecastWindGust.innerHTML = "Wind: " + forecastWind + " MPH";
+
+    //forecastUv = document.querySelector(forecastContainer);
+   // forecastUv.innerHTML = "UV Index: " + forecastUvi;
+
+
+
+
+
+   
     
 
 
@@ -147,26 +192,13 @@ let storage = JSON.parse(localStorage.getItem("storage")) || {};
 
 // Store in local storage
 
-var saveStorage = function() {
-    var city = cityInput.value.trim();
-
-    if (storage.indexOf(city) == -1) {
-        storage.push(city);
-        localStorage.setItem("storage", JSON.stringify(storage));
-    }
-    searchList.innerHTML = "";
-
-    for (var i = 0; i < storage.length; i++) {
-        var location = storage[i];
-        var button = document.createElement("button");
-        button.textContent = location;
-        button.classList.add("btn");
-        searchList.appendChild(button);
-
-        button.addEventListener("click", locationClickHandler);
-    }
+if (storage.length > 0) {
+    displayWeather(storage[storage.length -1]);
 }
 
+for (var i = 0; i < storage.length; i++) {
+    fetchWeather(storage[i]);
+};
 
 //event listener for search 
 searchBtn.addEventListener("click", formSubmitHandler);
