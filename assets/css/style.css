@@ -1,3 +1,7 @@
+body {
+    background-color: rgba(31, 48, 70, 0.801);
+}
+
 .jumbotron {
     text-align: center;
     background-color: rgb(63, 63, 156);
@@ -10,6 +14,21 @@
 }
 
 #forecast-container {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+}
+
+#humidity {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+}
+
+#wind-gust {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+}
+
+#uv-index {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bolder;
 }
