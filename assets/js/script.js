@@ -6,7 +6,6 @@ clearHistoryBtn = document.querySelector("#clear-history-btn");
 cityInput = document.querySelector("#city-input");
 citySearch = document.querySelector("#city-search");
 uvIndex = document.querySelector("#uv-index");
-searchList = document.querySelector("#search-list");
 forecastContainer = document.querySelector("#forecast-container");
 temperature = document.querySelector("#temperature");
 currentHumidity = document.querySelector("#humidity");
@@ -14,6 +13,7 @@ windGust = document.querySelector("#wind-gust");
 uv = document.querySelector("#uv-index");
 previousCityContainer = document.querySelector("#previous-city");
 weatherIcon = document.querySelector("#icon");
+currentDate = document.querySelector("#today");
 
 searchHistory = [];
 
@@ -52,9 +52,7 @@ var fetchCoord = function (city) {
   fetch(weatherApi).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        var todaysDate = new Date(data.dt * 1000).toLocaleDateString();
-
-        citySearch.textContent = data.name + " " + todaysDate;
+        citySearch.textContent = data.name;
         console.log(data);
         // Lat & Lon
         let lat = data.coord.lat;
@@ -100,15 +98,15 @@ var previousCity = function (lat, lon, name) {
   previousCityContainer.appendChild(cityDiv);
 };
 
-//=================Get Data from Above Buttons to Displat on Page ==============
+//=================Get Data from Above Buttons to Display on Page ==============
 var prevoiusSubmitHandler = function (event) {
-  event.preventDefault();
 
   let lat = event.target.getAttribute("data-lat");
   let lon = event.target.getAttribute("data-lon");
   let city = event.target.textContent;
-
-  citySearch.textContent = "";
+  
+  citySearch.textContent = city;
+  
   forecastContainer.textContent = "";
 
   fetchWeather(lat, lon, city);
@@ -117,7 +115,6 @@ var prevoiusSubmitHandler = function (event) {
 //=================display Current Weather==================
 
 var displayWeather = function (data) {
-  //let weather = data.current;
   console.log(data);
 
   let temp = data.current.temp;
@@ -125,9 +122,13 @@ var displayWeather = function (data) {
   let wind = data.current.wind_speed;
   let uvi = data.current.uvi;
   let icon = data.current.weather[0].icon;
+  let todaysDate = new Date(data.current.dt * 1000).toLocaleDateString();
   console.log(data);
 
   console.log(temp, humidity, wind, uvi);
+
+  //=================Current Weather HTML Elements==================
+currentDate.innerHTML = todaysDate;
 
   weatherIcon = "src='https://openweathermap.org/img/wn/" + icon + "@2x.png'";
 
@@ -168,7 +169,7 @@ function displayForecast(data) {
 
     console.log(forecastTemp, forecastHumidity, forecastWind, forecastUvi);
 
-    //============HTML Elements Displayed on Page ================================
+    //============HTML Forecast Elements Displayed on Page ================================
     forecastEl.classList.add("border", "bg-info", "text-center");
 
     forecastEl.innerHTML =
@@ -192,7 +193,7 @@ function displayForecast(data) {
   }
 }
 
-// ======= Local Storage ==========
+// ============ Local Storage ==============
 
 var saveInfo = function (lat, lon, location) {
   var saveCity = {
@@ -212,7 +213,7 @@ var loadInfo = function () {
   }
 };
 
-//=============Clear Local Storage========
+//=============Clear Local Storage ===========
 clearHistoryBtn.addEventListener("click", function () {
   localStorage.clear();
   searchHistory = [];
