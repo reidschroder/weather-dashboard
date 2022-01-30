@@ -1,6 +1,6 @@
 apiKey = "0220bdc9ce3ee0ac9ca0de968fea102c";
 
-//variables
+//===============variables===============
 searchBtn = document.querySelector("#search-btn");
 clearHistoryBtn = document.querySelector("#clear-history-btn");
 cityInput = document.querySelector("#city-input");
@@ -17,10 +17,10 @@ weatherIcon = document.querySelector("#icon");
 
 searchHistory = [];
 
-//currentDate.textContent = moment().format("MMM Do YY")
 
+//==========submit handler for search button========================
 var formSubmitHandler = function (event) {
-  //prevent page refresh
+  //====prevent page refresh=====
   event.preventDefault();
 
   forecastContainer.innerHTML = "";
@@ -39,7 +39,7 @@ var formSubmitHandler = function (event) {
   }
 };
 
-//fetch lat & lon function
+//===============Get Lattitude & Longitude for a City ===============
 
 var fetchCoord = function (city) {
   var weatherApi =
@@ -89,7 +89,7 @@ var fetchWeather = function (lat, lon) {
   });
 };
 
-// Previous Cities ===========
+//================= Previously Searched Cities  ===========
 var previousCity = function (lat, lon, name) {
   let cityDiv = document.createElement("button");
   cityDiv.innerText = name;
@@ -100,7 +100,7 @@ var previousCity = function (lat, lon, name) {
   previousCityContainer.appendChild(cityDiv);
 };
 
-//create function that goes to fetch previous weather
+//=================Get Data from Above Buttons to Displat on Page ==============
 var prevoiusSubmitHandler = function (event) {
   event.preventDefault();
 
@@ -113,9 +113,8 @@ var prevoiusSubmitHandler = function (event) {
 
   fetchWeather(lat, lon, city);
 };
-// pass lat & lon in fetch weather
 
-//display Current Weather
+//=================display Current Weather==================
 
 var displayWeather = function (data) {
   //let weather = data.current;
@@ -140,7 +139,7 @@ var displayWeather = function (data) {
 
   uv.innerHTML = "UV Index: " + uvi;
 
-  // display the uv index color chart
+  //============ display the uv index color chart=================
   if (uvi < 3) {
     uv.classList.add("text-success");
   } else if (uvi < 7) {
@@ -149,7 +148,7 @@ var displayWeather = function (data) {
     uv.classList.add("text.danger");
   }
 };
-// Display 5 Day Forecast ==========
+//=======================Display 5 Day Forecast ==================
 function displayForecast(data) {
   console.log(data);
 
@@ -169,7 +168,7 @@ function displayForecast(data) {
 
     console.log(forecastTemp, forecastHumidity, forecastWind, forecastUvi);
 
-    //============Delete bg-success and add different color ================================
+    //============HTML Elements Displayed on Page ================================
     forecastEl.classList.add("border", "bg-info", "text-center");
 
     forecastEl.innerHTML =
@@ -213,14 +212,14 @@ var loadInfo = function () {
   }
 };
 
-// Clear Local Storage
+//=============Clear Local Storage========
 clearHistoryBtn.addEventListener("click", function () {
   localStorage.clear();
   searchHistory = [];
 });
 
-// event listener for Previous cities =====
+//===============event listener for Previous cities ==============
 previousCityContainer.addEventListener("click", prevoiusSubmitHandler);
 
-//event listener for search
+//==============event listener for search========================
 searchBtn.addEventListener("click", formSubmitHandler);
