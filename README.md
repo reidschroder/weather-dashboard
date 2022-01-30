@@ -18,7 +18,7 @@ https://reidschroder.github.io/weather-dashboard/
 
 
 ## Preview
-![Alt text](./assets/images/weather-dashboard-screenshot.png "Weather Dashboard")
+![Alt text](./assets/images/weather_dashboard_screenshot.png "Weather Dashboard")
 
 ## Contribution
 Reid Schroder
