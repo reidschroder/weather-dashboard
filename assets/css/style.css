@@ -18,6 +18,11 @@ body {
     font-weight: bolder;
 }
 
+#temperature {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+}
+
 #humidity {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bolder;

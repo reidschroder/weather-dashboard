@@ -17,7 +17,6 @@ currentDate = document.querySelector("#today");
 
 searchHistory = [];
 
-
 //==========submit handler for search button========================
 var formSubmitHandler = function (event) {
   //====prevent page refresh=====
@@ -100,13 +99,12 @@ var previousCity = function (lat, lon, name) {
 
 //=================Get Data from Above Buttons to Display on Page ==============
 var prevoiusSubmitHandler = function (event) {
-
   let lat = event.target.getAttribute("data-lat");
   let lon = event.target.getAttribute("data-lon");
   let city = event.target.textContent;
-  
+
   citySearch.textContent = city;
-  
+
   forecastContainer.textContent = "";
 
   fetchWeather(lat, lon, city);
@@ -128,7 +126,7 @@ var displayWeather = function (data) {
   console.log(temp, humidity, wind, uvi);
 
   //=================Current Weather HTML Elements==================
-currentDate.innerHTML = todaysDate;
+  currentDate.innerHTML = todaysDate;
 
   weatherIcon = "src='https://openweathermap.org/img/wn/" + icon + "@2x.png'";
 
@@ -197,9 +195,7 @@ function displayForecast(data) {
 
 var saveInfo = function (lat, lon, location) {
   var saveCity = {
-    name: location,
-    latitude: lat,
-    longitude: lon,
+    city: location,
   };
   searchHistory.push(saveCity);
 
